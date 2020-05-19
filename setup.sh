@@ -32,7 +32,7 @@ if [[-d "$ZSH_CUSTOM/themes/powerlevel10k"]] then
     echo "Powerlevel10k theme already installed"
 else    
     git clone --depth=1 https://github.com/romkatv/powerlevel10k.git $ZSH_CUSTOM/themes/powerlevel10k
-
+fi
 
 echo "Setting theme to powerlevel10k (remember to change the font in iTerm preferences)"
 sed -i '' 's/ZSH_THEME="robbyrussell"/ZSH_THEME="powerlevel10k/powerlevel10k"/g' $HOME/.zshrc
@@ -40,3 +40,49 @@ sed -i '' 's/plugins=(git)/plugins=(brew compleat git npm osx yarn)/g' $HOME/.zs
 sed -i '' 's/# HIST_STAMPS/HIST_STAMPS/g' $HOME/.zshrc
 sed -i '' 's/# DISABLE_UNTRACKED_FILES_DIRTY/DISABLE_UNTRACKED_FILES_DIRTY/g' $HOME/.zshrc
 sed -i '' 's/# COMPLETION_WAITING_DOTS/COMPLETION_WAITING_DOTS/g' $HOME/.zshrc
+
+# Install font tool and fonts
+./install-fonts.sh
+
+echo "Symlinking dotfiles to home directory"
+
+# Setting up globignore for zsh
+GLOBIGNORE=.
+
+# Grab all .files
+FILES=".*"
+
+# Ignore certain files
+IGNORE=(".gitignore")
+
+# For each file, symlink to home directory
+for f in $FILES; do
+
+  if [[ -d $f ]]; then
+    echo "Skipping directory $f"
+    continue
+  fi
+  
+  if [[ " ${IGNORE[@]} " =~ " ${f} " ]]; then
+    echo "Skipping file $f"
+    continue
+  fi
+
+  f_source="$DIR/$f"
+  f_dest="$HOME/$f"
+  echo "Linking $f from $f_source to $f_dest"
+
+  if [[ -f $f_dest ]]; then
+    echo "$f_dest already exists, replacing"
+    rm "$f_dest"
+  fi
+
+  if [[ -L $f_dest ]]; then
+    echo "$f_dest is already a symlink, replacing with new symlink"
+    rm "$f_dest"
+  fi
+
+  ln -s "$f_source" "$f_dest"
+done
+
+popd || exit
