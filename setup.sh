@@ -42,6 +42,10 @@ sed -i '' 's|# HIST_STAMPS|HIST_STAMPS|g' $HOME/.zshrc
 sed -i '' 's|# DISABLE_UNTRACKED_FILES_DIRTY|DISABLE_UNTRACKED_FILES_DIRTY|g' $HOME/.zshrc
 sed -i '' 's|# COMPLETION_WAITING_DOTS|COMPLETION_WAITING_DOTS|g' $HOME/.zshrc
 
+#This command uses double quotes so newline characters can be included
+sed -i '' '/User configuration/a\
+POWERLEVEL9K_DISABLE_CONFIGURATION_WIZARD=true' $HOME/.zshrc
+
 # Install font tool and fonts
 echo "Installing fonts in font folder"
 source install-fonts.sh
