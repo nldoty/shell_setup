@@ -28,10 +28,21 @@ fi
 cp "$HOME/.oh-my-zsh/templates/zshrc.zsh-template" "$HOME/.zshrc"
 
 # Install powerlevel10 theme
-if [[-d "$ZSH_CUSTOM/themes/powerlevel10k"]] then
+if [[-d "$ZSH_CUSTOM/themes/powerlevel10k"]]; then
     echo "Powerlevel10k theme already installed"
 else    
     git clone --depth=1 https://github.com/romkatv/powerlevel10k.git $ZSH_CUSTOM/themes/powerlevel10k
+fi
+
+# Install zsh autocompletions plugin
+if [[-d "$ZSH_CUSTOM/plugins/zsh-autosuggestions"]]; then
+    echo "Updating zsh-autocompletions repository"
+    pushd $ZSH_CUSTOM/plugins/zsh-autosuggestions || exit
+    git pull
+    popd || exit
+else
+    echo "Updating zsh-autocompletions"
+    git clone https://github.com/zsh-users/zsh-autosuggestions $ZSH_CUSTOM/plugins/zsh-autosuggestions
 
 
 echo "Setting theme to powerlevel10k (remember to change the font in iTerm preferences)"
@@ -40,3 +51,7 @@ sed -i '' 's/plugins=(git)/plugins=(brew compleat git npm osx yarn)/g' $HOME/.zs
 sed -i '' 's/# HIST_STAMPS/HIST_STAMPS/g' $HOME/.zshrc
 sed -i '' 's/# DISABLE_UNTRACKED_FILES_DIRTY/DISABLE_UNTRACKED_FILES_DIRTY/g' $HOME/.zshrc
 sed -i '' 's/# COMPLETION_WAITING_DOTS/COMPLETION_WAITING_DOTS/g' $HOME/.zshrc
+
+if [[-f "$HOME/.p10k.zsh"]] then
+    echo "Powerline config file already exists"
+else
