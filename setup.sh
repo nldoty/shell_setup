@@ -44,14 +44,61 @@ else
     echo "Updating zsh-autocompletions"
     git clone https://github.com/zsh-users/zsh-autosuggestions $ZSH_CUSTOM/plugins/zsh-autosuggestions
 
-
+echo "Make sure you update your theme in iTerm2 to Solarized Dark"
 echo "Setting theme to powerlevel10k (remember to change the font in iTerm preferences)"
-sed -i '' 's/ZSH_THEME="robbyrussell"/ZSH_THEME="powerlevel10k/powerlevel10k"/g' $HOME/.zshrc
-sed -i '' 's/plugins=(git)/plugins=(brew compleat git npm osx yarn)/g' $HOME/.zshrc
-sed -i '' 's/# HIST_STAMPS/HIST_STAMPS/g' $HOME/.zshrc
-sed -i '' 's/# DISABLE_UNTRACKED_FILES_DIRTY/DISABLE_UNTRACKED_FILES_DIRTY/g' $HOME/.zshrc
-sed -i '' 's/# COMPLETION_WAITING_DOTS/COMPLETION_WAITING_DOTS/g' $HOME/.zshrc
+sed -i '' 's|ZSH_THEME="robbyrussell"|ZSH_THEME="powerlevel10k/powerlevel10k"|g' $HOME/.zshrc
+sed -i '' 's/plugins=(git)/plugins=(brew compleat git npm osx yarn zsh-completions)/g' $HOME/.zshrc
+sed -i '' 's|# HIST_STAMPS|HIST_STAMPS|g' $HOME/.zshrc
+sed -i '' 's|# DISABLE_UNTRACKED_FILES_DIRTY|DISABLE_UNTRACKED_FILES_DIRTY|g' $HOME/.zshrc
+sed -i '' 's|# COMPLETION_WAITING_DOTS|COMPLETION_WAITING_DOTS|g' $HOME/.zshrc
 
-if [[-f "$HOME/.p10k.zsh"]] then
-    echo "Powerline config file already exists"
-else
+#This command uses double quotes so newline characters can be included
+sed -i '' '/User configuration/a\
+POWERLEVEL9K_DISABLE_CONFIGURATION_WIZARD=true' $HOME/.zshrc
+
+# Install font tool and fonts
+echo "Installing fonts in font folder"
+source install-fonts.sh
+
+echo "Symlinking dotfiles to home directory"
+
+# Setting up globignore for zsh
+GLOBIGNORE=.
+
+# Grab all .files
+FILES=".*"
+
+# Ignore certain files
+IGNORE=(".gitignore")
+
+# For each file, symlink to home directory
+for f in $FILES; do
+
+  if [[ -d $f ]]; then
+    echo "Skipping directory $f"
+    continue
+  fi
+  
+  if [[ " ${IGNORE[@]} " =~ " ${f} " ]]; then
+    echo "Skipping file $f"
+    continue
+  fi
+
+  f_source="$DIR/$f"
+  f_dest="$HOME/$f"
+  echo "Linking $f from $f_source to $f_dest"
+
+  if [[ -f $f_dest ]]; then
+    echo "$f_dest already exists, replacing"
+    rm "$f_dest"
+  fi
+
+  if [[ -L $f_dest ]]; then
+    echo "$f_dest is already a symlink, replacing with new symlink"
+    rm "$f_dest"
+  fi
+
+  ln -s "$f_source" "$f_dest"
+done
+
+popd || exit
