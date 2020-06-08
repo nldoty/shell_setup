@@ -19,7 +19,7 @@ DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null 2>&1 && pwd )"
 pushd "$DIR" || exit
 
 echo "Checking for oh-my-zsh install"
-if [[ -d "$HOME/.oh-my-zsh" ]]; then
+if [[ -d "$HOME/.oh-my-zsh" ]]: then
   echo "Oh My Zsh already installed"
 else
   sh -c "$(curl -fsSL https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/master/tools/install.sh)"
