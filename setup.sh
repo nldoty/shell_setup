@@ -28,7 +28,7 @@ fi
 cp "$HOME/.oh-my-zsh/templates/zshrc.zsh-template" "$HOME/.zshrc"
 
 # Install powerlevel10 theme
-if [[-d "$ZSH_CUSTOM/themes/powerlevel10k"]]; then
+if [[ -d "$ZSH_CUSTOM/themes/powerlevel10k"]]; then
     echo "Powerlevel10k theme already installed"
 else    
     git clone --depth=1 https://github.com/romkatv/powerlevel10k.git $ZSH_CUSTOM/themes/powerlevel10k
