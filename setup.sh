@@ -28,14 +28,14 @@ fi
 cp "$HOME/.oh-my-zsh/templates/zshrc.zsh-template" "$HOME/.zshrc"
 
 # Install powerlevel10 theme
-if [[ -d "$ZSH_CUSTOM/themes/powerlevel10k"]]; then
+if [[ -d "$ZSH_CUSTOM/themes/powerlevel10k" ]]; then
     echo "Powerlevel10k theme already installed"
 else    
     git clone --depth=1 https://github.com/romkatv/powerlevel10k.git $ZSH_CUSTOM/themes/powerlevel10k
 fi
 
 # Install zsh autocompletions plugin
-if [[-d "$ZSH_CUSTOM/plugins/zsh-autosuggestions"]]; then
+if [[ -d "$ZSH_CUSTOM/plugins/zsh-autosuggestions" ]]; then
     echo "Updating zsh-autocompletions repository"
     pushd $ZSH_CUSTOM/plugins/zsh-autosuggestions || exit
     git pull
@@ -43,6 +43,7 @@ if [[-d "$ZSH_CUSTOM/plugins/zsh-autosuggestions"]]; then
 else
     echo "Updating zsh-autocompletions"
     git clone https://github.com/zsh-users/zsh-autosuggestions $ZSH_CUSTOM/plugins/zsh-autosuggestions
+fi
 
 echo "Make sure you update your theme in iTerm2 to Solarized Dark"
 echo "Setting theme to powerlevel10k (remember to change the font in iTerm preferences)"
