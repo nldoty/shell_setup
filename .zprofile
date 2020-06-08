@@ -12,4 +12,5 @@ function resource_zsh {
   source $ZDOTDIR/.zprofile
   source $ZDOTDIR/.zshrc
   source $ZDOTDIR/.zlogin
+  source $ZDOTDIR/.zlocal
 }
