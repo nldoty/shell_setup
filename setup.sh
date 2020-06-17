@@ -41,7 +41,7 @@ if [[ -d "$ZSH_CUSTOM/plugins/zsh-autosuggestions" ]]; then
     git pull
     popd || exit
 else
-    echo "Updating zsh-autocompletions"
+    echo "Downloading zsh-autocompletions"
     git clone https://github.com/zsh-users/zsh-autosuggestions $ZSH_CUSTOM/plugins/zsh-autosuggestions
 fi
 
