@@ -48,16 +48,15 @@ fi
 echo "Make sure you update your theme in iTerm2 to Solarized Dark"
 echo "Setting theme to powerlevel10k (remember to change the font in iTerm preferences)"
 
-# These commands use double quotes so newline characters can be included
-sed -i '' '/User configuration/a\
-POWERLEVEL9K_DISABLE_CONFIGURATION_WIZARD=true' $HOME/.zshrc
-sed -i '' '/plugins=(git)/a\
-autoload -U compinit && compinit' $HOME/.zshrc
 sed -i '' 's|ZSH_THEME="robbyrussell"|ZSH_THEME="powerlevel10k/powerlevel10k"|g' $HOME/.zshrc
 sed -i '' 's/plugins=(git)/plugins=(brew compleat git npm osx yarn zsh-completions)/g' $HOME/.zshrc
 sed -i '' 's|# HIST_STAMPS|HIST_STAMPS|g' $HOME/.zshrc
 sed -i '' 's|# DISABLE_UNTRACKED_FILES_DIRTY|DISABLE_UNTRACKED_FILES_DIRTY|g' $HOME/.zshrc
 sed -i '' 's|# COMPLETION_WAITING_DOTS|COMPLETION_WAITING_DOTS|g' $HOME/.zshrc
+
+# These commands use double quotes so newline characters can be included
+sed -i '' '/User configuration/a\
+POWERLEVEL9K_DISABLE_CONFIGURATION_WIZARD=true' $HOME/.zshrc
 
 # Install font tool and fonts
 echo "Installing fonts in font folder"
@@ -103,5 +102,8 @@ for f in $FILES; do
 
   ln -s "$f_source" "$f_dest"
 done
+
+echo "Updating completions by running compinit"
+autoload -U compinit && compinit
 
 popd || exit
