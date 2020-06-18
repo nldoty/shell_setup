@@ -42,13 +42,13 @@ if [[ -d "$ZSH_CUSTOM/plugins/zsh-autosuggestions" ]]; then
     popd || exit
 else
     echo "Downloading zsh-autocompletions"
-    git clone https://github.com/zsh-users/zsh-autosuggestions $ZSH_CUSTOM/plugins/zsh-autosuggestions
+    git clone https://github.com/zsh-users/zsh-completions ${ZSH_CUSTOM:=~/.oh-my-zsh/custom}/plugins/zsh-completions
 fi
 
 echo "Make sure you update your theme in iTerm2 to Solarized Dark"
 echo "Setting theme to powerlevel10k (remember to change the font in iTerm preferences)"
 sed -i '' 's|ZSH_THEME="robbyrussell"|ZSH_THEME="powerlevel10k/powerlevel10k"|g' $HOME/.zshrc
-sed -i '' 's/plugins=(git)/plugins=(brew compleat git npm osx yarn zsh-autocompletions)/g' $HOME/.zshrc
+sed -i '' 's/plugins=(git)/plugins=(brew compleat git npm osx yarn zsh-completions)/g' $HOME/.zshrc
 sed -i '' 's|# HIST_STAMPS|HIST_STAMPS|g' $HOME/.zshrc
 sed -i '' 's|# DISABLE_UNTRACKED_FILES_DIRTY|DISABLE_UNTRACKED_FILES_DIRTY|g' $HOME/.zshrc
 sed -i '' 's|# COMPLETION_WAITING_DOTS|COMPLETION_WAITING_DOTS|g' $HOME/.zshrc
@@ -56,6 +56,8 @@ sed -i '' 's|# COMPLETION_WAITING_DOTS|COMPLETION_WAITING_DOTS|g' $HOME/.zshrc
 #This command uses double quotes so newline characters can be included
 sed -i '' '/User configuration/a\
 POWERLEVEL9K_DISABLE_CONFIGURATION_WIZARD=true' $HOME/.zshrc
+sed -i '' 'plugins=(git)/a\
+autoload -U compinit && compinit' $HOME/.zshrc
 
 # Install font tool and fonts
 echo "Installing fonts in font folder"
