@@ -48,10 +48,10 @@ fi
 echo "Make sure you update your theme in iTerm2 to Solarized Dark"
 echo "Setting theme to powerlevel10k (remember to change the font in iTerm preferences)"
 
-#These commands use double quotes so newline characters can be included
+# These commands use double quotes so newline characters can be included
 sed -i '' '/User configuration/a\
 POWERLEVEL9K_DISABLE_CONFIGURATION_WIZARD=true' $HOME/.zshrc
-sed -i '' 'plugins=(git)/a\
+sed -i '' '/plugins=(git)/a\
 autoload -U compinit && compinit' $HOME/.zshrc
 sed -i '' 's|ZSH_THEME="robbyrussell"|ZSH_THEME="powerlevel10k/powerlevel10k"|g' $HOME/.zshrc
 sed -i '' 's/plugins=(git)/plugins=(brew compleat git npm osx yarn zsh-completions)/g' $HOME/.zshrc
