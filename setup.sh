@@ -103,6 +103,6 @@ for f in $FILES; do
   ln -s "$f_source" "$f_dest"
 done
 
-echo "Updating completions by running compinit"
+echo "Make sure to update completions by running compinit command in README"
 
 popd || exit
