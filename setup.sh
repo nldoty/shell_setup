@@ -1,4 +1,4 @@
-#!/usr/bin/env zsh
+#!/usr/bin/env bash
 
 #Variables
 ZSH_LOC="${ZSH_LOC:-$HOME/.oh-my-zsh}"
