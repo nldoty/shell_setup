@@ -42,7 +42,7 @@ if [[ -d "$ZSH_CUSTOM/plugins/zsh-autosuggestions" ]]; then
     popd || exit
 else
     echo "Downloading zsh-autocompletions"
-    git clone https://github.com/zsh-users/zsh-completions ${ZSH_CUSTOM:=~/.oh-my-zsh/custom}/plugins/zsh-completions
+    git clone https://github.com/zsh-users/zsh-completions $ZSH_CUSTOM/plugins/zsh-completions
 fi
 
 echo "Make sure you update your theme in iTerm2 to Solarized Dark"
