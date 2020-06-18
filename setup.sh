@@ -1,4 +1,4 @@
-#!/usr/bin/env bash
+#!/usr/bin/env zsh
 
 #Variables
 ZSH_LOC="${ZSH_LOC:-$HOME/.oh-my-zsh}"
@@ -104,6 +104,5 @@ for f in $FILES; do
 done
 
 echo "Updating completions by running compinit"
-autoload -U compinit && compinit
 
 popd || exit
