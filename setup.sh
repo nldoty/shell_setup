@@ -25,7 +25,7 @@ else
   sh -c "$(curl -fsSL https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/master/tools/install.sh)"
 fi
 
-cp "$HOME/.oh-my-zsh/templates/zshrc.zsh-template" "$HOME/.zshrc"
+cp "zshrc.zsh-template" "$HOME/.zshrc"
 
 # Install powerlevel10 theme
 if [[ -d "$ZSH_CUSTOM/themes/powerlevel10k" ]]; then
